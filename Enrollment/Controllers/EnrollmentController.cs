@@ -35,7 +35,7 @@ namespace Enrollment.Controllers
         public ActionResult Enrollments()
         {
             return View(enrollments);
-        }
+        }   
         public ActionResult EnrollmentProcess()
         {
             return View(enrollments);
