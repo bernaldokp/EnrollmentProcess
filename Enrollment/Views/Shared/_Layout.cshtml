@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="~/images/civic_logo.jpg" />
+    <title>@ViewBag.Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center" href="@Url.Action("Index", "Home")">
+                <img src="~/Images/Civic-removebg-preview.png" alt="Logo" style="height: 40px;">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain"
+                    aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarMain">
+                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start mx-auto">
+                    <ul class="nav col-12 col-lg-auto mb-2 justify-content-center mb-md-0">
+                        <li>
+                            <a href="@Url.Action("Index", "Home")"
+                               class="btn btn-outline-light me-2 text-black
+                                   @(ViewContext.RouteData.Values["action"].ToString() == "Index" ? "active-nav" : "")">
+                                Home
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("About", "Home")"
+                               class="btn btn-outline-light me-2 text-black
+                                   @(ViewContext.RouteData.Values["action"].ToString() == "About" ? "active-nav" : "")">
+                                About
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Contact", "Home")"
+                               class="btn btn-outline-light me-2 text-black
+                                   @(ViewContext.RouteData.Values["action"].ToString() == "Contact" ? "active-nav" : "")">
+                                Contact
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Enrollments", "Enrollment")"
+                               class="btn btn-outline-light me-2 text-black
+                                    @(ViewContext.RouteData.Values["action"].ToString() == "Enrollments" ? "active-nav" : "")">
+                                EnrollmentDetails
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("EnrollmentProcess", "Enrollment")"
+                               class="btn btn-outline-light me-2 text-black
+                                    @(ViewContext.RouteData.Values["action"].ToString() == "EnrollmentProcess" ? "active-nav" : "")">
+                                EnrollmentProcess
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="d-flex align-items-center gap-2">
+                    @if (Session["Username"] != null)
+                    {
+                        <a class="btn btn-outline-light text-black
+                               @(ViewContext.RouteData.Values["action"].ToString() == "Dashboard" ? "active-nav" : "")"
+                           href="@Url.Action("Dashboard", "Account")">
+                            Dashboard
+                        </a>
+                        <a class="btn btn-danger" href="@Url.Action("Logout", "Account")">
+                            Logout
+                        </a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-outline-light text-black
+                               @(ViewContext.RouteData.Values["action"].ToString() == "Login" ? "active-nav" : "")"
+                           href="@Url.Action("Login", "Account")">
+                            Login
+                        </a>
+                        <a class="btn btn-light text-primary text-black
+                               @(ViewContext.RouteData.Values["action"].ToString() == "Register" ? "active-nav" : "")"
+                           href="@Url.Action("Register", "Account")">
+                            Register
+                        </a>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </nav>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer class="footer bg-light text-black pt-5 pb-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="mb-0">&copy; @DateTime.Now.Year Civic Merchandising Inc. – All Rights Reserved
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

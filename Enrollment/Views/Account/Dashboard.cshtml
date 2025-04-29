@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "Dashboard";
+}
+
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="card p-4 shadow text-center" style="width: 400px;">
+
+        <div class="mb-4">
+            <img src="~/UploadedImages/Civic-removebg-preview.png" alt="Logo" style="height: 60px;">
+        </div>
+
+        <h2>Welcome, @ViewBag.Username!</h2>
+        <p>You have successfully logged in.</p>
+
+        <a href="@Url.Action("Logout", "Account", "Home")" class="btn btn-danger mt-3 w-100">Logout</a>
+    </div>
+</div>
