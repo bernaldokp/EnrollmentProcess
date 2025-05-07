@@ -20,6 +20,7 @@ namespace Enrollments.Models
     }
     public enum Course
     {
+        None,
         ComputerScience,
         InformationTechnology,
         SoftwareEngineering,

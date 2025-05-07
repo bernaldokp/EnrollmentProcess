@@ -13,7 +13,7 @@
     <h3>Enrollment</h3>
     <div class="card shadow p-3 mb-5 bg-body rounded">
         <div class="card-body">
-            @using (Html.BeginForm("EnrollNewUser", "Home", FormMethod.Post, new { @class = "form-control" }))
+            @using (Html.BeginForm("EnrollNewUser", "Enrollment", FormMethod.Post, new { @class = "form-control" }))
             {
                 <div class="row">
                     <div class="p-4 col-lg-12 col-md-12">
@@ -76,66 +76,88 @@
                 </div>
             }
         </div>
-        <table class="table table-striped table-striped-columns">
-            <tr>
-                <td>
-                    Id
-                </td>
-                <td>
-                    user
-                </td>
-                <td>
-                    Course
-                </td>
-                <td>
-                    YearLevel
-                </td>
-                <td>
-                    Section
-                </td>
-            </tr>
-            @foreach (var i in Model)
+    </div>
+    @using (Html.BeginForm("Search", "Enrollment", FormMethod.Get, new { @class = "form-control" }))
+    {
+        <div>
+            @Html.TextBox("Name",null, new { @class = "form-control" })
+        </div>
+        <div>
+            @Html.DropDownList("Course", new SelectList(Enum.GetValues(typeof(Enrollments.Models.Course))), "Select Course", new { @class = "custom-select" })
+        </div>
+        <button type="submit">Search</button>
+    }
+
+
+    <table class="table table-striped table-striped-columns">
+        <tr>
+            <td>
+                Id
+            </td>
+            <td>
+                user
+            </td>
+            <td>
+                Course
+            </td>
+            <td>
+                YearLevel
+            </td>
+            <td>
+                Section
+            </td>
+        </tr>
+
+        @foreach (var i in Model)
+        {
+
+            if (i.Status)
             {
 
-                if (i.Status)
-                {
+                <tr class="table-success">
+                    <td>
+                        @i.ID
 
-                    <tr class="table-success">
-                        <td>
-                            @i.ID
-                        </td>
-                        <td>
-                            @i.Name
-                        </td>
-                        <td>
-                            @i.Course
-                        </td>
-                        <td>
-                            @i.YearLevel
-                        </td>
-                        <td>
-                            @i.Section
-                        </td>
-                        
-                    </tr>
-                }
-                else
-                {
-                    <tr class="table-danger">
-                        <td>
-                            @i.ID
-                        </td>
-                        <td>
-                            @i.Name
-                        </td>
-                        <td>
-                            @i.Course
-                        </td>
-                        
-                    </tr>
-                }
+                    </td>
+                    <td>
+                        @i.Name
+                    </td>
+                    <td>
+                        @i.Course
+                    </td>
+                    <td>
+                        @i.YearLevel
+                    </td>
+                    <td>
+                        @i.Section
+                    </td>
+                    <td>
+                        @Html.ActionLink("Details", "Details", new { id = i.ID })
+                    </td>
 
+                </tr>
             }
-        </table>
-    </div>
+            else
+            {
+                <tr class="table-danger">
+                    <td>
+                        @i.ID
+                    </td>
+                    <td>
+                        @i.Name
+                    </td>
+                    <td>
+                        @i.Course
+                    </td>
+                    <td>
+                        @Html.ActionLink("Details", "Details", new { id = i.ID })
+                    </td>
+
+                </tr>
+            }
+
+        }
+
+    </table>
+
 </main>

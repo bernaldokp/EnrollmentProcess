@@ -11,11 +11,11 @@ namespace Enrollment.Controllers
     {
         private static List<EnrollmentDetails> enrollments = new List<EnrollmentDetails>()
         {
-            new EnrollmentDetails(){Name = "John Doe", DateOfBirth = new DateTime(2000, 1, 1), Age = 23, Address = "123 Main St", ContactNumber = 123-456-7890, ID = "001",  Status = true},
-            new EnrollmentDetails(){Name = "Jane Smith", DateOfBirth = new DateTime(1999, 2, 2), Age = 24, Address = "456 Elm St", ContactNumber = 987 - 654 - 3210, ID = "002", Status = true},
-            new EnrollmentDetails(){Name = "Alice Johnson", DateOfBirth = new DateTime(2001, 3, 3), Age = 22, Address = "789 Oak St", ContactNumber = 555 - 555 - 5555, ID = "003", Status = true},
-            new EnrollmentDetails(){Name = "Bob Brown", DateOfBirth = new DateTime(2002, 4, 4), Age = 21, Address = "321 Pine St", ContactNumber = 444 - 444 - 4444, ID = "004", Status = true},
-            new EnrollmentDetails(){Name = "Charlie Davis", DateOfBirth = new DateTime(2003, 5, 5), Age = 20, Address = "654 Maple St", ContactNumber = 333 - 333 - 3333, ID = "005", Status = true},
+            new EnrollmentDetails(){  Course= Course.SoftwareEngineering, Name = "John Doe", DateOfBirth = new DateTime(2000, 1, 1), Age = 23, Address = "123 Main St", ContactNumber = 123-456-7890, ID = "001",  Status = true},
+            new EnrollmentDetails(){Course= Course.ComputerScience, Name = "Jane Smith", DateOfBirth = new DateTime(1999, 2, 2), Age = 24, Address = "456 Elm St", ContactNumber = 987 - 654 - 3210, ID = "002", Status = true},
+            new EnrollmentDetails(){ Course= Course.ArtificialIntelligence,Name = "Alice Johnson", DateOfBirth = new DateTime(2001, 3, 3), Age = 22, Address = "789 Oak St", ContactNumber = 555 - 555 - 5555, ID = "003", Status = true},
+            new EnrollmentDetails(){Course = Course.MobileAppDevelopment, Name = "Bob Brown", DateOfBirth = new DateTime(2002, 4, 4), Age = 21, Address = "321 Pine St", ContactNumber = 444 - 444 - 4444, ID = "004", Status = true},
+            new EnrollmentDetails(){Course = Course.SoftwareEngineering, Name = "Charlie Davis", DateOfBirth = new DateTime(2003, 5, 5), Age = 20, Address = "654 Maple St", ContactNumber = 333 - 333 - 3333, ID = "005", Status = true},
         };
         
 
@@ -32,10 +32,11 @@ namespace Enrollment.Controllers
             }
             return View(user);
         }
-        public ActionResult Enrollments()
+        public ActionResult Details(string id)
         {
-            return View(enrollments);
-        }   
+            var user = enrollments.FirstOrDefault(e => e.ID == id.ToString());
+            return View(user);
+        } 
         public ActionResult EnrollmentProcess()
         {
             return View(enrollments);
@@ -43,6 +44,7 @@ namespace Enrollment.Controllers
         [HttpPost]
         public ActionResult EnrollNewUser(EnrollmentDetails enrollment)
         {
+
             enrollments.Add(new EnrollmentDetails()
             {
                 Name = enrollment.Name,
@@ -58,7 +60,17 @@ namespace Enrollment.Controllers
             });
             return RedirectToAction("Enrollments");
         }
-        
+        public ActionResult Search(EnrollmentDetails searchDetails)
+        {
+            var User = enrollments.Where(e =>
+
+            (searchDetails.Name == null || e.Name.ToUpper().Contains(searchDetails.Name.ToUpper()))
+            &&
+                (searchDetails.Course == Course.None || e.Course == searchDetails.Course)).ToList();
+
+            return View("EnrollmentProcess", User);
+        }
+
         [HttpPost]
         public ActionResult UpdateEnrollment(EnrollmentDetails enrollment)
         {

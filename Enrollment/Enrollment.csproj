@@ -126,6 +126,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Course.cs" />
     <Compile Include="Models\EnrollmentDetails.cs" />
     <Compile Include="Models\UserInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -185,7 +186,7 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\Dashboard.cshtml" />
-    <Content Include="Views\Enrollment\Enrollments.cshtml" />
+    <Content Include="Views\Enrollment\Details.cshtml" />
     <Content Include="Views\Enrollment\EnrollmentProcess.cshtml" />
   </ItemGroup>
   <ItemGroup>
